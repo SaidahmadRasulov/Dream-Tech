@@ -2,7 +2,7 @@
   <div class="home_content p-6">
     <div class="home_title sm:w-2/3 lg:2/3 w-full">
       <h1 class="text-xl md:text-[16px] lg:text-2xl">
-        Team <span class="text-custom-main">PRO</span>
+        Dream <span class="text-custom-main">PRO</span>
       </h1>
       <p class="mt-6 md:text-[12px] lg:text-[16px]">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem eius ad ab

@@ -4,10 +4,10 @@
   >
     <div
       class="project_card w-full lg:w-1/4 md:w-1/3 h-[400px] flex items-end justify-center relative overflow-hidden md:overflow-hidden text-xl bg-cover bg-center"
-      v-for="item in store.products"
-      :style="{ backgroundImage: `url(${item.image})` }"
+      v-for="item in dates"
+      :style="{ backgroundImage: `url(${item.image_url})` }"
     >
-      <h1 class="project_card_title">{{ item.title }}</h1>
+      <h1 class="project_card_title text-custom-main">{{ item.title }}</h1>
       <div class="project_card_hover">
         <div class="card_hover_title">
           <h1 class="text-2xl text-custom-main">{{ item.title }}</h1>
@@ -26,12 +26,19 @@
 </template>
 <script>
 import { useMainStore } from '@/stores'
+import { useFetch } from './useFetch'
 
 export default {
   data() {
     return {
-      store: useMainStore()
+      store: useMainStore(),
+      dates: [],
+      apiUrl: 'https://sunnatakbarov.pythonanywhere.com/api/v1/posts/list'
     }
+  },
+  async mounted() {
+    this.dates = await useFetch(this.apiUrl)
+    console.log(this.dates)
   }
 }
 </script>

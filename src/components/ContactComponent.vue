@@ -1,7 +1,7 @@
 <template>
   <div class="p-6 flex md:flex-row flex-col justify-between">
     <div class="contact_form md:w-1/3 mb-6">
-      <form action="#" @submit="handleSubmit">
+      <div>
         <div class="mb-3">
           <label for=""> <span class="text-custom-main">Ism</span> Familia </label>
           <input
@@ -13,7 +13,7 @@
         <div class="mb-3">
           <label for=""><span class="text-custom-main">Telefon</span> raqam</label>
           <input
-            type="number"
+            type="text"
             class="outline-none w-full py-4 px-2 shadow-xl border rounded-md"
             v-model="number"
           />
@@ -33,11 +33,12 @@
         <div class="mt-4 text-end">
           <button
             class="hover:bg-white text-white mr-4 sm:mr-0 bg-custom-main hover:text-custom-main py-1 px-2 rounded-md border border-custom-main transition-all delay-75 md:w-auto w-full"
+            @click="handlePost"
           >
             Yuborish
           </button>
         </div>
-      </form>
+      </div>
     </div>
     <div class="contact_map mb-6 md:w-1/2 md:h-[400px]">
       <iframe
@@ -50,12 +51,31 @@
   </div>
 </template>
 <script>
+import { postDate } from './useFetch'
+
 export default {
   data() {
     return {
       username: '',
       number: '',
-      message: ''
+      message: '',
+      apiUrl: 'https://sunnatakbarov.pythonanywhere.com/api/v1/contact/create/'
+    }
+  },
+  methods: {
+    handlePost() {
+      let new_user = {
+        fullname: this.username,
+        phone: this.number,
+        message: this.message
+      }
+
+      if (new_user.fullname && new_user.phone && new_user.message) {
+        postDate(this.apiUrl, new_user)
+        console.log(new_user)
+      } else {
+        console.log('All fields are required')
+      }
     }
   }
 }

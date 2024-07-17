@@ -116,7 +116,7 @@ export const useMainStore = defineStore('main', {
           }
         ]
       }
-    ]
+    ],
   }),
   getters: {
     filteredPrices(filter) {

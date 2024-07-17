@@ -26,7 +26,9 @@
               v-model="plan_select"
               @change="updateTarifs"
             >
-              <option :value="item.value" v-for="item in store.prices">{{ item.title }}</option>
+              <option :value="item" v-for="item in prices" :key="item.id">
+                {{ item.title }}
+              </option>
             </select>
           </div>
           <div class="plan_select w-full gap-1 flex flex-col">
@@ -35,7 +37,9 @@
               class="py-1 px-2 w-full rounded-md border border-custom-main outline-none"
               v-model="tarif_select"
             >
-              <option :value="date.val" v-for="date in filteredTarifs">{{ date.title }}</option>
+              <option :value="tarif.id" v-for="tarif in filteredTarifs" :key="tarif.id">
+                {{ tarif.title }}
+              </option>
             </select>
           </div>
         </div>
@@ -60,7 +64,7 @@
       </form>
     </div>
     <div class="community_privilage md:w-2/3">
-      <div class="community_control flex-wrap md:flex-nowrap  flex items-center gap-4">
+      <div class="community_control flex-wrap md:flex-nowrap flex items-center gap-4">
         <button
           @click="handleFilter('seo')"
           :class="{ 'text-custom-main border border-custom-main': filter === 'seo' }"
@@ -96,7 +100,11 @@
           v-for="item in filteredPrices"
           :key="item.id"
         >
-          <div class="price_card w-full rounded-md md:w-1/3 border p-2 border-custom-main" v-for="obj in item.dates">
+          <div
+            class="price_card w-full rounded-md md:w-1/3 border p-2 border-custom-main"
+            v-for="obj in item.tariffs"
+            :key="obj.id"
+          >
             <h1 class="text-center h-[60px]">{{ obj.title }}</h1>
             <p>{{ obj.description }}</p>
           </div>
@@ -107,7 +115,7 @@
 </template>
 
 <script>
-import { useMainStore } from '@/stores'
+import { useFetch } from './useFetch'
 
 export default {
   data() {
@@ -116,18 +124,19 @@ export default {
       number: '',
       message: '',
       filter: 'seo',
-      store: useMainStore(),
       plan_select: 'seo',
-      tarif_select: ''
+      tarif_select: '',
+      prices: [],
+      apiUrl: 'https://sunnatakbarov.pythonanywhere.com/api/v1/project_type/list/'
     }
   },
   computed: {
     filteredPrices() {
-      return this.store.prices.filter((item) => item.value === this.filter)
+      return this.prices.filter((item) => item.value === this.filter)
     },
     filteredTarifs() {
-      const selectedPlan = this.store.prices.find((item) => item.value === this.plan_select)
-      return selectedPlan ? selectedPlan.dates : []
+      const selectedPlan = this.prices.find((item) => item.value === this.plan_select)
+      return selectedPlan ? selectedPlan.tariffs : []
     }
   },
   methods: {
@@ -135,19 +144,57 @@ export default {
       this.filter = category
     },
     updateTarifs() {
-      this.tarif_select = '' // reset the tarif_select when plan_select changes
+      this.tarif_select = ''
     },
-    handleSubmit() {
-      console.log('Form submitted:', {
-        username: this.username,
-        number: this.number,
+    async handleSubmit() {
+      const orderData = {
+        fullname: this.username,
+        phone: this.number,
+        project_type: this.plan_slelect,
+        tariff: this.tarif_select,
         message: this.message
-      })
+      }
+      console.log(orderData)
+
+      try {
+        const response = await fetch(
+          'https://sunnatakbarov.pythonanywhere.com/api/v1/order/create/',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+          }
+        )
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`)
+        }
+
+        const result = await response.json()
+        console.log('Order submitted successfully:', result)
+        this.resetForm()
+      } catch (error) {
+        console.error('Error submitting order:', error)
+      }
+    },
+    resetForm() {
+      this.username = ''
+      this.number = ''
+      this.message = ''
+      this.plan_select = ''
+      this.tarif_select = ''
+    },
+    async getData() {
+      this.prices = await useFetch(this.apiUrl)
+      console.log(this.prices)
     }
+  },
+  mounted() {
+    this.getData()
   }
 }
 </script>
 
-<style scoped>
-/* Add your styles here */
-</style>
+<style scoped></style>

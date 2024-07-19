@@ -6,16 +6,24 @@
     >
       <div class="comment_card_header"></div>
       <div class="comment_card_body p-4">
-        <h1><span class="text-custom-main group-hover:text-white">Mijoz:</span> {{ item.user }}</h1>
+        <h1>
+          <span class="text-custom-main group-hover:text-white">{{ $t('client') }}:</span>
+          {{ item.user }}
+        </h1>
         <p>
-          <span class="text-custom-main group-hover:text-white">Proekt:</span> {{ item.project }}
+          <span class="text-custom-main group-hover:text-white">{{ $t('project_type') }}:</span>
+          {{ item.project }}
         </p>
         <p>
-          <span class="text-custom-main group-hover:text-white">Fikri:</span> {{ item.comment.slice(0, 200) }}...
+          <span class="text-custom-main group-hover:text-white">{{ $t('client_opinion') }}:</span>
+          {{ item.comment.slice(0, 200) }}...
         </p>
       </div>
       <div class="comment_card_footer p-4 text-end">
-        <p><span class="text-custom-main group-hover:text-white">Sana:</span> {{ item.date }}</p>
+        <p>
+          <span class="text-custom-main group-hover:text-white">{{ $t('date') }}:</span>
+          {{ item.date }}
+        </p>
       </div>
     </div>
   </div>

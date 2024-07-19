@@ -35,7 +35,7 @@ export const options = {
       random: true,
       anim: {
         enable: false,
-        speed: 40,
+        speed: 120,
         size_min: 0.1,
         sync: false
       }
@@ -49,7 +49,7 @@ export const options = {
     },
     move: {
       enable: true,
-      speed: 10,
+      speed: 5,
       direction: 'none',
       random: true,
       straight: false,

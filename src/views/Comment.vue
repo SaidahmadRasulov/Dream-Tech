@@ -1,6 +1,9 @@
 <template>
   <div class="p-6">
-    <h1 class="text-center text-xl">Mijozlarni <span class="text-custom-main">Fikrlari</span></h1>
+    <h1 class="text-center text-xl ">
+      <span class="text-custom-main">{{ $t('comment_title').split(' ')[0] }}</span>
+      {{ $t('comment_title').split(' ')[1] }}
+    </h1>
     <CommentComponent />
   </div>
 </template>

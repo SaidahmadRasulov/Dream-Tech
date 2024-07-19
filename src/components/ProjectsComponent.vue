@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex gap-10 flex-wrap overflow-y-scroll md:h-[500px] lg:h-[600px] justify-center my-4"
+    class="flex gap-10 flex-wrap overflow-y-scroll md:h-[500px] lg:h-[400px] justify-center my-4"
   >
     <div
       class="project_card w-full lg:w-1/4 md:w-1/3 h-[400px] flex items-end justify-center relative overflow-hidden md:overflow-hidden text-xl bg-cover bg-center"
@@ -17,7 +17,7 @@
           <button
             class="hover:bg-transparent text-white mr-4 sm:mr-0 bg-custom-main hover:text-custom-main py-1 px-2 rounded-md border border-custom-main transition-all delay-75"
           >
-            Ko'rish
+            {{ $t('view') }}
           </button>
         </RouterLink>
       </div>

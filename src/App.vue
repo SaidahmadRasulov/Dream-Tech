@@ -1,8 +1,8 @@
 <template>
-  <div id="particles-js" class="h-[100vh] relative">
-    <div class="absolute left-0 right-0">
+  <div id="particles-js" class="md:h-[100vh] relative">
+    <div class="absolute left-0 right-0 z-20">
       <NavbarLayout />
-      <div class="particle_content rounded-md  xl:h-[80vh] bg-white container mt-10 mx-auto p-2">
+      <div class="relative -z-10 particle_content backdrop-blur-sm rounded-md xl:h-[80vh] container mt-10 mx-auto p-2 ">
         <RouterView />
       </div>
     </div>
@@ -23,6 +23,9 @@ export default {
 #particles-js {
   width: 100%;
   height: 100vh;
-  background: #bab9b9;
+  background: #e0e0e0;
+}
+.particle_content {
+  background-color: rgba(255, 255, 255, 0.26);
 }
 </style>

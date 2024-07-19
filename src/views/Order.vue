@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1 class="text-center text-xl"><span class="text-custom-main">Buyurtma</span> Bolimi</h1>
+    <h1 class="text-center text-xl"><span class="text-custom-main">{{ $t('order_title').split(' ')[0] }}</span>
+      {{ $t('order_title').split(' ').slice(1).join(' ') }}</h1>
     <OrderComponent />
   </div>
 </template>

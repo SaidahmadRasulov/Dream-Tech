@@ -9,7 +9,8 @@ export default {
       },
       container: {
         screens: {
-          'lg': '1200px'
+          lg: '1350px',
+          xl: '1640px'
         }
       }
     }

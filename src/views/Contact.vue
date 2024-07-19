@@ -1,6 +1,7 @@
 <template lang="">
   <div>
-    <h1 class="text-center text-xl">Biz bilan <span class="text-custom-main">Boglanish</span></h1>
+    <h1 class="text-center text-2xl  py-4"><span class="text-custom-main">{{ $t('contact_title').split(' ')[0] }}</span>
+      {{ $t('contact_title').split(' ').slice(1).join(' ') }}</h1>
     <ContactComponent />
   </div>
 </template>
